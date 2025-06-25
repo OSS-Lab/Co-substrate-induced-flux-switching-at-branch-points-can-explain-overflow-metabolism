@@ -1,0 +1,13 @@
+To make the data, run the "make_scatter.py" and "make_scatter_nocosub.py" file in runsims. to avoid naming conflicts, these need to be run in separate python kernels. Then the figure scripts in plotdata can be ran. These can be run in the same python kernel, but I recommend using a separate one from the "make_scatter" files. Making the data takes around 15 minutes per set (so around 1 hour total) using 16 threads.
+
+To look at different parameters, you need to change the values in functions in the make_heatmaps_compartment files in simulation_functions and simulation_functions_nocosub folders. For simulation_functions, the functions are make_params_newtest_6_nonfixed and make_params_newtest_6 (nonfixed vs fixed branch parameters), while for simulation_functions the functions are make_params_newtest_5_nonfixed and make_params_newtest_5.
+
+
+
+Figure 4 - Only needs make_scatter.py
+
+Figure S6 - Only needs make_scatter.py
+
+Figure S7 - Needs both make_scatter.py and make_scatter_nocosub.py
+
+Figure S8 - doesnt need data pre-generated
