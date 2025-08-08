@@ -6,8 +6,6 @@ The code for the figures is organised into folders containing the figures that s
 
 All the figures with the "toy" motifs assume irreversible reactions (apart from the background B conversion). This can be changed by setting "rev=True" in the scripts to generate and plot the data.
 
-Some Figures 2, 3 & 4 have had text & labels added in inkscape after they were made, or have had the panels re-ordered compared to what is made here. 
-
-Note that the data folders in each subfolder are zipped (to make the upload easier) so please unzip the data folders before proceeding.
+The data folder is included as a zipped file. To use it, unzip it first. 
 
 More specific comments can be found in each folder.
