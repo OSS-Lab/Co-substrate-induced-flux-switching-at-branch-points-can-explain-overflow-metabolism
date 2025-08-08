@@ -1,0 +1,2 @@
+To make the figure run the "Figure_1.py" file in the plotdata folder. The data for panel D is obtained from the matlab code in the "matlab" folder, which needs to be unzipped first.
+
