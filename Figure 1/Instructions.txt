@@ -1,1 +1,1 @@
-To make the figure run the "Figure_1.py" file in the plotdata folder. The data for panel D is obtained from the matlab code in the "matlab" folder.
+To make the figure run the "Figure_1.py" file in the plotdata folder. The data for panel D is obtained from the matlab code in the "matlab" folder. When running the matlabl code, the iML1515 file needs to be unzipped
