@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 import matplotlib.pylab as pylab
 import matplotlib as mpl
 
-savefig=0       # change to 1 to save generated figures
+savefig=1       # change to 1 to save generated figures
 # numkin=201
 numkin=81
 # 
@@ -55,7 +55,7 @@ KCmod=1.
 
 alpha_scat=1.
 
-params = {'legend.fontsize': 11,
+params = {'legend.fontsize': 12,
           'legend.title_fontsize': 14,
           'axes.labelsize': 20,
           'axes.titlesize': 20,
@@ -88,37 +88,47 @@ for diffval in diffvals:
         plt.axis('off')
         
         ax2=plt.axes([3.1,0.8,1.8,2.2])    # scatter
-        ax4=plt.axes([1,-0.075,0.9,0.625])    # fluxfraction
-        ax11=plt.axes([1,-0.7,0.9,0.625])    # fluxfraction
-        
-        ax3=plt.axes([2.0,-0.075,0.9,0.625])    # expt
-        ax10=plt.axes([2.0,-0.7,0.9,0.625])    # fluxfraction
-        ax13=plt.axes([2.0,-0.7,0.9,0.625])    # fluxfraction
+        ax3=plt.axes([1,-0.075,0.9,0.625])    # fluxfraction
+        ax10=plt.axes([1,-0.7,0.9,0.625])    # fluxfraction
+        ax13=plt.axes([1.0,-0.7,0.9,0.625])    # fluxfraction
         ax13.set_xlim((0,1))
         ax13.set_ylim((0,1))
         ax13.axis('off')
-        ax5=plt.axes([1.15,-0.425,0.5,0.275])
-        ax12=plt.axes([1.15,0.2,0.5,0.275])
         
-        ax6=plt.axes([1.05,0.8,1.7,1])
+        ax44=plt.axes([2.0,-0.075,0.9,0.625])    # expt
+        ax111=plt.axes([2.0,-0.7,0.9,0.625])    # fluxfraction
+        
+        # ax5=plt.axes([1.15,-0.425,0.5,0.275])
+        # ax12=plt.axes([1.15,0.2,0.5,0.275])
+        
+        ax5=plt.axes([1.0,0.8,0.8,0.55])
+        ax12=plt.axes([1,1.35,0.8,0.55])
+        
+        axsw=plt.axes([2.05,0.8,0.7,1.1])
         
         ax33=plt.axes([3.,-0.075,0.9,0.625])    # expt
         ax100=plt.axes([3.,-0.7,0.9,0.625])    # fluxfraction
         
-        ax44=plt.axes([4.0,-0.075,0.9,0.625])    # expt  4.15
-        ax111=plt.axes([4.0,-0.7,0.9,0.625])    # fluxfraction
+        ax6=plt.axes([4.0,-0.7,0.9,1.25])    # expt  4.15
+        # ax11=plt.axes([4.0,-0.7,0.9,0.625])    # fluxfraction
         
         ax2.text(-1.38,1,'$\\rm A$',fontsize=40)
         # ax2.text(1.475,1.725,'$\\rm C$',fontsize=40)
-        ax6.text(-0.2,23,'$\\rm C$',fontsize=40)
+        # ax6.text(-0.2,23,'$\\rm C$',fontsize=40)
         ax2.text(-0.025,1.025,'$\\rm B$',fontsize=40)
+        
+        ax12.text(0.01,4.5,'$\\rm C$',fontsize=40)
+        axsw.text(-5.8,4.3,'$\\rm D$',fontsize=40)
+        ax6.text(-24,0.35,'$\\rm H$',fontsize=40)
+        ax6.text(5,-0.075,'$(*)~ n.s.$',fontsize=20)
+        
         ax3.text(10**-8.1,0.825,'$\\rm E$',fontsize=40,color='k')
-        ax4.text(10**-8.1,0.825,'$\\rm D$',fontsize=40,color='k')
+        # ax4.text(10**-8.1,0.825,'$\\rm G$',fontsize=40,color='k')
         # ax3.text(10**(-10.4),0.75,'$\\rm C$',fontsize=30)
         # ax4.text(10**(-10.5),0.75,'$\\rm D$',fontsize=30)
         
-        ax44.text(10**-8.1,0.825,'$\\rm G$',fontsize=40,color='k')
-        ax33.text(10**-8.1,0.825,'$\\rm F$',fontsize=40,color='k')
+        ax44.text(10**-8.1,0.825,'$\\rm F$',fontsize=40,color='k')
+        ax33.text(10**-8.1,0.825,'$\\rm G$',fontsize=40,color='k')
         
         # ax5=plt.axes([2.0,0.02,0.2,0.48])   # box plots
         # ax6=plt.axes([2.325,0.02,0.2,0.48])
@@ -261,11 +271,11 @@ for diffval in diffvals:
         paraB=list()
         paraC=list()
         
-        ff_delta=np.abs(ff_delta)
-        # ff_delta=-ff_delta
-        c0delta=np.abs(c0delta)
-        b0delta=np.abs(b0delta)
-        n0delta=np.abs(n0delta)
+        # ff_delta=np.abs(ff_delta)
+        ff_delta=-ff_delta
+        # c0delta=np.abs(c0delta)
+        # b0delta=np.abs(b0delta)
+        # n0delta=np.abs(n0delta)
         
         
         indexes_noswitching=list()      # no switching in ff or cosub
@@ -277,6 +287,9 @@ for diffval in diffvals:
         
         maxdelta=np.maximum(c0delta,b0delta)
         print(maxdelta)
+        
+        b0fractions=dat['b0frac']
+        c0fractions=dat['c0frac']
         
         for i in range(n):
         
@@ -731,12 +744,13 @@ for diffval in diffvals:
         ax2.scatter(ff_delta[indexes_noswitching],maxdelta[indexes_noswitching],s=45,color='w',edgecolors='k',zorder=0,alpha=alpha_scat)#,label='no switching'
         s1=ax2.scatter(ff_delta[indexes_switch_nocosub],maxdelta[indexes_switch_nocosub],s=45,color='royalblue',edgecolors='k',zorder=0,label='no cosub switching',alpha=alpha_scat)
         s3=ax2.scatter(ff_delta[indexes_switch_mito],maxdelta[indexes_switch_mito],s=45,color='mediumseagreen',edgecolors='k',zorder=0,label='mito',alpha=alpha_scat)
-        s2=ax2.scatter(ff_delta[indexes_switch_both],maxdelta[indexes_switch_both],s=45,color='firebrick',edgecolors='k',zorder=5,label='both',alpha=alpha_scat)
+        
         
         s4=ax2.scatter(ff_delta[indexes_switch_cyto],maxdelta[indexes_switch_cyto],s=45,color='peru',edgecolors='k',zorder=0,label='cyto',alpha=alpha_scat)
+        s2=ax2.scatter(ff_delta[indexes_switch_both],maxdelta[indexes_switch_both],s=45,color='firebrick',edgecolors='k',zorder=5,label='both',alpha=alpha_scat)
         # ax2.scatter(ff_delta[indexes_switch_retained],maxdelta[indexes_switch_retained],s=45,color='teal',edgecolors='teal',zorder=0,label='${\\rm co}$-${\\rm sub.~mediated~switching}$')#,label=''),alpha=0.5
         ax2.scatter(ff_delta[indplot_switchretained],maxdelta[indplot_switchretained],s=45,color='mediumseagreen',alpha=1,edgecolors='fuchsia',zorder=20,linewidth=4)#,label='')
-        ax2.scatter(ff_delta[indplot_noncosub],maxdelta[indplot_noncosub],s=45,color='royalblue',alpha=1,edgecolors='fuchsia',zorder=20,linewidth=4)#,label='')
+        # ax2.scatter(ff_delta[indplot_noncosub],maxdelta[indplot_noncosub],s=45,color='royalblue',alpha=1,edgecolors='fuchsia',zorder=20,linewidth=4)#,label='')
         ax2.scatter(ff_delta[indplot_cyto],maxdelta[indplot_cyto],s=45,color='peru',alpha=1,edgecolors='fuchsia',zorder=20,linewidth=4)#,label='')
         ax2.scatter(ff_delta[indplot_bothcosub],maxdelta[indplot_bothcosub],s=45,color='firebrick',alpha=1,edgecolors='fuchsia',zorder=20,linewidth=4)#,label='')
         
@@ -778,9 +792,9 @@ for diffval in diffvals:
         
         
         ax2.text(1.01,c0delta[indplot_switchretained],'$\\rm E$',fontsize=30,color='k')
-        ax2.text(1.01,c0delta[indplot_noncosub],'$\\rm D$',fontsize=30,color='k')# ax3.text(10**-7,0.8,str(indplot_switchretained),fontsize=20)
-        ax2.text(1.01,0.99*c0delta[indplot_bothcosub],'$\\rm F$',fontsize=30,color='k')
-        ax2.text(1.01,1.03*b0delta[indplot_cyto],'$\\rm G$',fontsize=30,color='k')#
+        # ax2.text(1.01,c0delta[indplot_noncosub],'$\\rm D$',fontsize=30,color='k')# ax3.text(10**-7,0.8,str(indplot_switchretained),fontsize=20)
+        ax2.text(1.01,0.99*c0delta[indplot_bothcosub],'$\\rm G$',fontsize=30,color='k')
+        ax2.text(1.01,1.03*b0delta[indplot_cyto],'$\\rm F$',fontsize=30,color='k')#
         # ax2.set_xticks(np.logspace(-9,-2,8), ['$10^{-9}$','','$10^{-7}$','',
         #                                      '$10^{-5}$','','$10^{-3}$',''])
         ind_temp=indplot_switchretained
@@ -840,7 +854,8 @@ for diffval in diffvals:
         ax10.plot(kinplot,1-(result[:,9]+result[:,11])/(result[:,9]+result[:,10]+result[:,11]+result[:,12]),label='Whole cell',linewidth=2,color='firebrick')
         ax10.plot(kinplot,1-(result[:,9])/(result[:,9]+result[:,10]),label='Cytosolic',linewidth=2,color='peru')
         ax10.plot(kinplot,1-(result[:,11])/(result[:,11]+result[:,12]),label='Mitochondrial',linewidth=2,color='mediumseagreen')
-        ax3.plot(kinplot,1-flux24/(flux23+flux24),linewidth=2,color='k')#,label='Flux Fraction'
+        ax3.plot(kinplot,1-flux24/(flux23+flux24),linewidth=2,color='k',
+                 label='Without NADH oxidase')
         ax3.text(10**-4.625,0.05,'$\\rm \\bf Mito$',fontsize=18,color='w',
                   bbox=dict(facecolor='mediumseagreen', edgecolor='k', boxstyle='round'))
         
@@ -852,8 +867,8 @@ for diffval in diffvals:
         
         ax10.set_xlabel('$v_{\\rm in}$',fontsize=40)
         # ax3.set_ylabel('$ F_f$',fontsize=30)
-        ax4.set_ylabel('$ {\\rm Flux ~Fraction}, F_f$',fontsize=20)
-        ax11.set_ylabel('$ {\\rm NADH ~Fraction}, N_{\\rm H}$',fontsize=20)
+        ax3.set_ylabel('$ {\\rm Flux ~Fraction}, F_f$',fontsize=20)
+        ax10.set_ylabel('$ {\\rm NADH ~Fraction}, N_{\\rm H}$',fontsize=20)
         ax10.legend(loc='upper left',ncols=1,fontsize=12)
         ax3.set_xscale('log')
         ax10.set_xscale('log')
@@ -862,17 +877,17 @@ for diffval in diffvals:
                                             # '$10^{-5}$','','$10^{-3}$',''])
         
         ax10.set_xticks(np.logspace(-8,-4,5))#, ['$10^{-9}$','','$10^{-7}$','',
-        ax3.set_yticks(np.linspace(0,1,3),labels=['','',''])
+        # ax4.set_yticks(np.linspace(0,1,3),labels=['','',''])
         ax3.set_ylim((-0.05,1.05))
         ax10.set_ylim((-0.05,1.05))
-        ax10.set_yticks(np.linspace(0,1,3),labels=['','',''])
+        # ax11.set_yticks(np.linspace(0,1,3),labels=['','',''])
         ax10.xaxis.set_label_coords(0.7,-0.1)
         
         ax3.set_xlim((10**-(8*1.025),10**-(4*0.975)))
         ax10.set_xlim((10**-(8*1.025),10**-(4*0.975)))
         
-        ax3.yaxis.set_label_coords(-0.05,0.5)
-        ax10.yaxis.set_label_coords(-0.05,0.5)
+        # ax3.yaxis.set_label_coords(-0.05,0.5)
+        # ax10.yaxis.set_label_coords(-0.05,0.5)
         ax10.xaxis.set_label_coords(0.65,-0.1)
         
         # print(swpt[ind_temp])
@@ -881,11 +896,12 @@ for diffval in diffvals:
         
         # ff_new=1-flux24_4/(flux23_4+flux24_4)
         swpt_4,sw_orig=mh_cm.find_sw_pt(1-flux24/(flux23+flux24),kinplot)
-        ax3.scatter(swpt_4,sw_orig,60, color='k',edgecolor='k',linewidth=2,
-                    label='$\\rm Without~ NADH~Oxidase$')
+        ax3.scatter(swpt_4,sw_orig,60, color='k',edgecolor='k',linewidth=2)
+                    # label='$\\rm Without~ NADH~Oxidase$')
         
-        
-        
+        swpt_Nmito_plt,swpt_val_Nmito_plt=mh_cm.find_sw_pt(1-(result[:,11])/(result[:,11]+result[:,12]), kinplot)
+        ax10.scatter(swpt_Nmito_plt,swpt_val_Nmito_plt,60,color='mediumseagreen',
+                     edgecolor='mediumseagreen',linewidth=2)
           
         
         # args_temp[12][3]*=0.1
@@ -914,16 +930,17 @@ for diffval in diffvals:
         ax10.plot(kinplot,1-(result2[:,9]+result2[:,11])/(result2[:,9]+result2[:,10]+result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='firebrick')
         ax10.plot(kinplot,1-(result2[:,9])/(result2[:,9]+result2[:,10]),linestyle='--',linewidth=2,color='peru')
         ax10.plot(kinplot,1-(result2[:,11])/(result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='mediumseagreen')
-        ax3.plot(kinplot,1-flux24_2/(flux23_2+flux24_2),linestyle='--',linewidth=2,color='k')
+        ax3.plot(kinplot,1-flux24_2/(flux23_2+flux24_2),linestyle='--',linewidth=2,color='k',
+                 label='With NADH oxidase')
         
         ax10.text(10**-6.15,0.3,'${\\rm NADH}$ \n ${\\rm oxidase}$',color='k',fontsize=15)
         
         sw_o=sw_orig
         swpt_kc,sw_orig_n=mh_cm.find_sw_pt(1-flux24_2/(flux23_2+flux24_2),kinplot,sw_orig)
-        ax3.scatter(swpt_kc,sw_orig,60, color='none',edgecolor='k',linewidth=2,
-                    label='$\\rm With~NADH~oxidase$')
+        ax3.scatter(swpt_kc,sw_orig,60, color='none',edgecolor='k',linewidth=2)
+                    # label='$\\rm With~NADH~oxidase$')
          
-        # ax3.legend(title='$\\rm \\underline{Switch~ Points}$')
+        ax3.legend(loc='center left')
         
         
         
@@ -1004,128 +1021,128 @@ for diffval in diffvals:
         
         # ax7.grid('on')
         
-        # get the data for original params
-        ind_temp=indplot_noncosub
-        args_temp=args_to_run[ind_temp]
-        print('\n')
-        print(ind_temp)
-        print(args_temp[0])
-        print(args_temp[1])
-        print(args_temp[2])
-        print(args_temp[3])
-        print('\n')
-        print(args_temp[4])
-        print(args_temp[5])
-        print(args_temp[6])
-        print(args_temp[7])
-        print('\n')
-        print(args_temp[8])
-        print(args_temp[9])
-        print(args_temp[10])
-        print(args_temp[11])
-        print('\n')
-        print(args_temp[12])
-        print(args_temp[13])
-        print('\n')
+        # # get the data for original params
+        # ind_temp=indplot_noncosub
+        # args_temp=args_to_run[ind_temp]
+        # print('\n')
+        # print(ind_temp)
+        # print(args_temp[0])
+        # print(args_temp[1])
+        # print(args_temp[2])
+        # print(args_temp[3])
+        # print('\n')
+        # print(args_temp[4])
+        # print(args_temp[5])
+        # print(args_temp[6])
+        # print(args_temp[7])
+        # print('\n')
+        # print(args_temp[8])
+        # print(args_temp[9])
+        # print(args_temp[10])
+        # print(args_temp[11])
+        # print('\n')
+        # print(args_temp[12])
+        # print(args_temp[13])
+        # print('\n')
         
-        print(args_temp[4])
-        print(args_temp[6])
+        # print(args_temp[4])
+        # print(args_temp[6])
         
         
         
-        kinplot_2=np.logspace(-8,-3,numkin)
+        # kinplot_2=np.logspace(-8,-3,numkin)
         
-        result=mh_cm.get_flux_vecs_2(args_temp[0],kinplot_2,args_temp[2],args_temp[3],
-                                     args_temp[4],args_temp[5],args_temp[6],args_temp[7],
-                                     args_temp[8],args_temp[9],args_temp[10],args_temp[11],
-                                     args_temp[12],args_temp[13],args_temp[14],args_temp[15],
-                                     args_temp[16],args_temp[17])
+        # result=mh_cm.get_flux_vecs_2(args_temp[0],kinplot_2,args_temp[2],args_temp[3],
+        #                              args_temp[4],args_temp[5],args_temp[6],args_temp[7],
+        #                              args_temp[8],args_temp[9],args_temp[10],args_temp[11],
+        #                              args_temp[12],args_temp[13],args_temp[14],args_temp[15],
+        #                              args_temp[16],args_temp[17])
         
             
-        # flux01= ode_cm.flux_enz_forward(result[:,0], result[:,1], result[:,9], result[:,10], 
-        #                          args_temp[3][0], args_temp[3][1], args_temp[3][2])            # gap -> pep
+        # # flux01= ode_cm.flux_enz_forward(result[:,0], result[:,1], result[:,9], result[:,10], 
+        # #                          args_temp[3][0], args_temp[3][1], args_temp[3][2])            # gap -> pep
         
-        # flux12= ode_cm.flux_enz_forward(result[:,1], result[:,2], 1.,1., 
-        #                          args_temp[4][0], args_temp[4][1], args_temp[4][2])           # pep -> pyr
+        # # flux12= ode_cm.flux_enz_forward(result[:,1], result[:,2], 1.,1., 
+        # #                          args_temp[4][0], args_temp[4][1], args_temp[4][2])           # pep -> pyr
         
-        flux23= ode_cm.flux_enz_forward(result[:,2]**allo[0], 1.,
-                                     args_temp[6][0],  args_temp[6][1])            # pyr -> acet
+        # flux23= ode_cm.flux_enz_forward(result[:,2]**allo[0], 1.,
+        #                              args_temp[6][0],  args_temp[6][1])            # pyr -> acet
         
-        # flux35= ode_cm.flux_enz_forward(result[:,3], result[:,4], result[:,10],result[:,9], 
-        #                          args_temp[6][0], args_temp[6][1], args_temp[6][2])              # acet -> etn
+        # # flux35= ode_cm.flux_enz_forward(result[:,3], result[:,4], result[:,10],result[:,9], 
+        # #                          args_temp[6][0], args_temp[6][1], args_temp[6][2])              # acet -> etn
         
-        # flux22=ode_cm.transp(result[:,2],args_temp[9][0],args_temp[9][1])             # pyr -> pyr_mito
+        # # flux22=ode_cm.transp(result[:,2],args_temp[9][0],args_temp[9][1])             # pyr -> pyr_mito
         
-        flux24= ode_cm.flux_enz_forward(result[:,5],  result[:,11], 
-                                     args_temp[8][0], args_temp[8][1])
+        # flux24= ode_cm.flux_enz_forward(result[:,5],  result[:,11], 
+        #                              args_temp[8][0], args_temp[8][1])
         
-        ax11.plot(kinplot_2,1-(result[:,9]+result[:,11])/(result[:,9]+result[:,10]+result[:,11]+result[:,12]),label='$\\rm Whole ~Cell$',linewidth=2,color='firebrick')
-        ax11.plot(kinplot_2,1-(result[:,9])/(result[:,9]+result[:,10]),label='$\\rm Cytosolic$',linewidth=2,color='peru')
-        ax11.plot(kinplot_2,1-(result[:,11])/(result[:,11]+result[:,12]),label='$\\rm Mitochondrial$',linewidth=2,color='mediumseagreen')
-        ax4.plot(kinplot_2,1-flux24/(flux23+flux24),label='Flux Fraction',linewidth=2,color='k')
-        # ax11.legend(loc='upper left',ncols=1,fontsize=15,title='$\\frac{\\rm [NADH]}{\\rm [NADH]+[NAD^+]}$',title_fontsize=20)
+        # ax11.plot(kinplot_2,1-(result[:,9]+result[:,11])/(result[:,9]+result[:,10]+result[:,11]+result[:,12]),label='$\\rm Whole ~Cell$',linewidth=2,color='firebrick')
+        # ax11.plot(kinplot_2,1-(result[:,9])/(result[:,9]+result[:,10]),label='$\\rm Cytosolic$',linewidth=2,color='peru')
+        # ax11.plot(kinplot_2,1-(result[:,11])/(result[:,11]+result[:,12]),label='$\\rm Mitochondrial$',linewidth=2,color='mediumseagreen')
+        # ax4.plot(kinplot_2,1-flux24/(flux23+flux24),label='Flux Fraction',linewidth=2,color='k')
+        # # ax11.legend(loc='upper left',ncols=1,fontsize=15,title='$\\frac{\\rm [NADH]}{\\rm [NADH]+[NAD^+]}$',title_fontsize=20)
         
-        ax11.set_xlabel('$v_{\\rm in}$',fontsize=40)
-        # ax4.set_ylabel('$ \\rm Flux ~Fraction $',fontsize=30)
-        ax4.set_xscale('log')
-        ax11.set_xscale('log')
-        # ax4.legend(loc='upper left',ncols=1)
-        ax4.set_xticks(np.logspace(-8,-4,5),labels=['','','','',''])#, ['$10^{-9}$','','$10^{-7}$','',
-                                            # '$10^{-5}$','','$10^{-3}$',''])
+        # ax11.set_xlabel('$v_{\\rm in}$',fontsize=40)
+        # # ax4.set_ylabel('$ \\rm Flux ~Fraction $',fontsize=30)
+        # ax4.set_xscale('log')
+        # ax11.set_xscale('log')
+        # # ax4.legend(loc='upper left',ncols=1)
+        # ax4.set_xticks(np.logspace(-8,-4,5),labels=['','','','',''])#, ['$10^{-9}$','','$10^{-7}$','',
+        #                                     # '$10^{-5}$','','$10^{-3}$',''])
         
-        ax11.set_xticks(np.logspace(-8,-4,5))#, ['$10^{-9}$','','$10^{-7}$','',
-        ax4.set_yticks(np.linspace(0,1,3),labels=['$0$','','$1$'])
-        ax4.set_ylim((-0.05,1.05))
-        ax11.set_ylim((-0.05,1.05))
-        ax4.set_xlim((10**-(8*1.025),10**-(4*0.975)))
-        ax11.set_xlim((10**-(8*1.025),10**-(4*0.975)))
+        # ax11.set_xticks(np.logspace(-8,-4,5))#, ['$10^{-9}$','','$10^{-7}$','',
+        # ax3.set_yticks(np.linspace(0,1,3),labels=['$0$','','$1$'])
+        # ax4.set_ylim((-0.05,1.05))
+        # ax11.set_ylim((-0.05,1.05))
+        # ax4.set_xlim((10**-(8*1.025),10**-(4*0.975)))
+        # ax11.set_xlim((10**-(8*1.025),10**-(4*0.975)))
         
-        ax11.set_yticks(np.linspace(0,1,3),labels=['$0$','','$1$'])
-        ax4.set_xlim((10**-(8*1.025),10**-(4*0.975)))
-        ax11.set_xlim((10**-(8*1.025),10**-(4*0.975)))
+        # ax10.set_yticks(np.linspace(0,1,3),labels=['$0$','','$1$'])
+        # ax4.set_xlim((10**-(8*1.025),10**-(4*0.975)))
+        # ax11.set_xlim((10**-(8*1.025),10**-(4*0.975)))
         
-        ax4.set_ylabel('$ {\\rm Flux ~Fraction}, F_f$',fontsize=20)
-        ax11.set_ylabel('$ {\\rm NADH ~Fraction}, N_{\\rm H}$',fontsize=20)
-        ax11.xaxis.set_label_coords(0.65,-0.1)
+        # # ax4.set_ylabel('$ {\\rm Flux ~Fraction}, F_f$',fontsize=20)
+        # # ax11.set_ylabel('$ {\\rm NADH ~Fraction}, N_{\\rm H}$',fontsize=20)
+        # ax11.xaxis.set_label_coords(0.65,-0.1)
         
         
 
-        ax4.text(10**-5.2,0.05,'\\bf No~Co-Sw',fontsize=18,color='w',
-                  bbox=dict(facecolor='royalblue', edgecolor='k', boxstyle='round'))
+        # ax4.text(10**-5.2,0.05,'\\bf No~Co-Sw',fontsize=18,color='w',
+        #           bbox=dict(facecolor='royalblue', edgecolor='k', boxstyle='round'))
         
-        swpt_4,sw_orig=mh_cm.find_sw_pt(1-flux24/(flux23+flux24),kinplot_2)
-        ax4.scatter(swpt_4,sw_orig,60, color='k',edgecolor='k',linewidth=2)
+        # swpt_4,sw_orig=mh_cm.find_sw_pt(1-flux24/(flux23+flux24),kinplot_2)
+        # ax4.scatter(swpt_4,sw_orig,60, color='k',edgecolor='k',linewidth=2)
         
-        # args_temp[12][3]*=0.1
-        args_temp[14][3]*=0.1
+        # # args_temp[12][3]*=0.1
         # args_temp[14][3]*=0.1
-        # args_temp[12][0]*=10.
-        # args_temp[13][0]*=10.
-        print('########\n check')
-        print(args_temp[13])
-        print(args_temp[14])
-        result2=mh_cm.get_flux_vecs_2(args_temp[0],kinplot_2,args_temp[2],args_temp[3],
-                                     args_temp[4],args_temp[5],args_temp[6],args_temp[7],
-                                     args_temp[8],args_temp[9],args_temp[10],args_temp[11],
-                                     args_temp[12],args_temp[13],args_temp[14],args_temp[15],
-                                     args_temp[16],args_temp[17])
+        # # args_temp[14][3]*=0.1
+        # # args_temp[12][0]*=10.
+        # # args_temp[13][0]*=10.
+        # print('########\n check')
+        # print(args_temp[13])
+        # print(args_temp[14])
+        # result2=mh_cm.get_flux_vecs_2(args_temp[0],kinplot_2,args_temp[2],args_temp[3],
+        #                              args_temp[4],args_temp[5],args_temp[6],args_temp[7],
+        #                              args_temp[8],args_temp[9],args_temp[10],args_temp[11],
+        #                              args_temp[12],args_temp[13],args_temp[14],args_temp[15],
+        #                              args_temp[16],args_temp[17])
         
           
-        flux23_2= ode_cm.flux_enz_forward(result2[:,2]**allo[0], 1.,
-                                     args_temp[6][0],  args_temp[6][1])             # pyr -> acet
+        # flux23_2= ode_cm.flux_enz_forward(result2[:,2]**allo[0], 1.,
+        #                              args_temp[6][0],  args_temp[6][1])             # pyr -> acet
         
-        flux24_2= ode_cm.flux_enz_forward(result2[:,5],  result2[:,11], 
-                                     args_temp[8][0], args_temp[8][1])            # pyr_mito -> AcCoA
+        # flux24_2= ode_cm.flux_enz_forward(result2[:,5],  result2[:,11], 
+        #                              args_temp[8][0], args_temp[8][1])            # pyr_mito -> AcCoA
         
         
-        ax11.plot(kinplot_2,1-(result2[:,9]+result2[:,11])/(result2[:,9]+result2[:,10]+result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='firebrick')
-        ax11.plot(kinplot_2,1-(result2[:,9])/(result2[:,9]+result2[:,10]),linestyle='--',linewidth=2,color='peru')
-        ax11.plot(kinplot_2,1-(result2[:,11])/(result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='mediumseagreen')
-        ax4.plot(kinplot_2,1-flux24_2/(flux23_2+flux24_2),linestyle='--',linewidth=2,color='k')
+        # ax11.plot(kinplot_2,1-(result2[:,9]+result2[:,11])/(result2[:,9]+result2[:,10]+result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='firebrick')
+        # ax11.plot(kinplot_2,1-(result2[:,9])/(result2[:,9]+result2[:,10]),linestyle='--',linewidth=2,color='peru')
+        # ax11.plot(kinplot_2,1-(result2[:,11])/(result2[:,11]+result2[:,12]),linestyle='--',linewidth=2,color='mediumseagreen')
+        # ax4.plot(kinplot_2,1-flux24_2/(flux23_2+flux24_2),linestyle='--',linewidth=2,color='k')
         
-        sw_o=sw_orig
-        swpt_kc,sw_orig_n=mh_cm.find_sw_pt(1-flux24_2/(flux23_2+flux24_2),kinplot_2,sw_orig)
-        ax4.scatter(swpt_kc,sw_orig,60, color='none',edgecolor='k',linewidth=2)
+        # sw_o=sw_orig
+        # swpt_kc,sw_orig_n=mh_cm.find_sw_pt(1-flux24_2/(flux23_2+flux24_2),kinplot_2,sw_orig)
+        # ax4.scatter(swpt_kc,sw_orig,60, color='none',edgecolor='k',linewidth=2)
         
         ind_temp=indplot_bothcosub
         args_temp=args_to_run[ind_temp]
@@ -1192,6 +1209,7 @@ for diffval in diffvals:
         # ax10.text(10**-6,0.5,'total.', fontsize=25, color='firebrick')
         # ax3.text(10**-6,0.6,'$F_f$', fontsize=20, color='k')
         
+
         
         ax100.set_xlabel('$v_{\\rm in}$',fontsize=40)
         # ax3.set_ylabel('$ F_f$',fontsize=30)
@@ -1229,7 +1247,13 @@ for diffval in diffvals:
                     label='$\\rm Without~ NADH~Oxidase$')
         
         
+        swpt_Nmito_plt,swpt_val_Nmito_plt=mh_cm.find_sw_pt(1-(result[:,11])/(result[:,11]+result[:,12]), kinplot)
+        ax100.scatter(swpt_Nmito_plt,swpt_val_Nmito_plt,60,color='darkgreen',
+                     edgecolor='darkgreen',linewidth=2,zorder=10)
         
+        swpt_Nmito_plt,swpt_val_Nmito_plt=mh_cm.find_sw_pt(1-(result[:,9])/(result[:,9]+result[:,10]), kinplot)
+        ax100.scatter(swpt_Nmito_plt,swpt_val_Nmito_plt,60,color='saddlebrown',
+                     edgecolor='saddlebrown',linewidth=2,zorder=10)
         
          # args_temp[12][3]*=0.1
         # args_temp[13][3]*=0.1
@@ -1362,11 +1386,15 @@ for diffval in diffvals:
         
         swpt_4,sw_orig=mh_cm.find_sw_pt(1-flux24/(flux23+flux24),kinplot_2)
         ax44.scatter(swpt_4,sw_orig,60, color='k',edgecolor='k',linewidth=2)
-
+        
+        swpt_Nmito_plt,swpt_val_Nmito_plt=mh_cm.find_sw_pt(1-(result[:,9])/(result[:,9]+result[:,10]), kinplot_2)
+        ax111.scatter(swpt_Nmito_plt,swpt_val_Nmito_plt,60,color='peru',
+                     edgecolor='peru',linewidth=2,zorder=10)
         # ax44.set_ylabel('$ {\\rm Flux ~Fraction}, F_f$',fontsize=20)
         # ax111.set_ylabel('$ {\\rm NADH ~Fraction}, N_{\\rm H}$',fontsize=20)
         
         # ax4.text(10**-4.7,0.9,'$\\rm \\underline{Model}$',fontsize=20)
+
         
         # args_temp[12][3]*=0.1
         args_temp[14][3]*=0.1
@@ -1429,22 +1457,22 @@ for diffval in diffvals:
         lin1=ax12.plot(xvals_dilution_rate,yvals_eth_prod_rate,'-x',color='k',
                  ms = 8, mec = 'k', mfc = 'k',
                  label='$\\rm Ethanol ~Production ~Rate$')# \n $\\rm (Experiment)$')
-        ax12.set_xlabel('${\\rm Dilution ~Rate}~(h^{-1})$',fontsize=15)
-        ax5.set_xlabel('${\\rm Dilution ~Rate}~(h^{-1})$',fontsize=15)
+        # ax12.set_xlabel('${\\rm Dilution ~Rate}~(h^{-1})$',fontsize=15)
+        ax5.set_xlabel('${\\rm Dilution ~Rate}~(h^{-1})$')
         # ax5.set_ylabel('${\\rm Ethanol}$'+'\n'+'${\\rm Production}$'+'\n'+'${\\rm Rate~(mol/litre~cell~colume)/}h$',ha="left")
         # ax5.set_ylabel('${\\rm mol/litre~cell~volume}/h$',fontsize=20)
         # ax5.set_xticks(np.linspace(0,0.3,4),labels=['','','',''])
         # ax5.text(0.05,1.5,'$\\rm \\underline{Experiment}$',fontsize=16)
         
-        ax12.set_xticks(np.linspace(0,0.3,4),labels=['$0$','$0.1$','$0.2$','$0.3$'],fontsize=13)
-        ax5.set_xticks(np.linspace(0,0.3,4),labels=['$0$','$0.1$','$0.2$','$0.3$'],fontsize=13)
+        ax12.set_xticks([])#np.linspace(0,0.3,4),labels=['','','',''])
+        ax5.set_xticks(np.linspace(0,0.3,4),labels=['$0$','$0.1$','$0.2$','$0.3$'])
         
-        ax12.set_yticks(np.linspace(0,6,4),labels=['$0$','$2$','$4$','$6$'],fontsize=13)
-        ax5.set_yticks(np.linspace(0,0.1,3),labels=['$0$','$0.05$','$0.1$'],fontsize=13)
+        ax12.set_yticks(np.linspace(0,6,4),labels=['$0$','$2$','$4$','$6$'])
+        ax5.set_yticks(np.linspace(0,0.04,3),labels=['$0$','$0.02$','$0.04$'])
         
         
         # ax12.set_yticks(np.linspace(0,1,3))
-        ax12.yaxis.set_label_coords(-0.1,0.5)
+        # ax12.yaxis.set_label_coords(-0.1,0.5)
         # ax5.legend()
         
         dilRate=np.array([	0.05	,0.11	,0.16	,0.22	,0.3])
@@ -1452,23 +1480,23 @@ for diffval in diffvals:
         NADH	=np.array([3.93345E-06	,4.55817E-06	,5.18715E-06	,8.31691E-06	,1.97706E-05])
         
         # ax12.plot(dilRate,NADH/(NAD+NADH),'-',color='firebrick',linewidth=2)
-        lin2=ax5.plot(dilRate,NADH/(NAD+NADH),'-x',color='grey',linewidth=2,
+        lin2=ax5.plot(dilRate,NADH/(NAD+NADH),'-x',color='red',linewidth=2,
                   ms = 8, mec = 'k', mfc = 'k',
                   label='$\\rm Whole ~Cell~ NADH ~Fraction$')# \n $\\rm (Experiment)$')
         
         lns = lin1+lin2
         labs = [l.get_label() for l in lns]
-        # ax5.legend(lns, labs, loc='upper left', title='$\\rm \\underline{Experimental~ Data:}$')
-        ax5.legend( loc='upper left', title='$\\rm \\underline{Experimental~ Data}$')
-        ax12.legend( loc='upper left', title='$\\rm \\underline{Experimental~ Data}$')
-        ax5.set_yticks(np.linspace(0,0.1,3))#,labels=['$0$','0.05','$0.1$'])
+        ax12.legend(lns, labs, loc='upper center', title='$\\rm \\underline{Experimental~ Data:}$')
+        # ax5.legend( loc='upper left', title='$\\rm \\underline{Experimental~ Data}$')
+        # ax12.legend( loc='upper left', title='$\\rm \\underline{Experimental~ Data}$')
+        # ax5.set_yticks(np.linspace(0,0.1,3))#,labels=['$0$','0.05','$0.1$'])
 
         # ax12.legend(loc='upper left')
         
         ax12.set_xlim((0,0.32))
         ax5.set_xlim((0.0,0.32))
-        ax5.set_ylim((-0.005,0.1))
-        ax12.set_ylim((-0.5,10.5))
+        ax5.set_ylim((-0.0025,0.05))
+        ax12.set_ylim((-0.5,6))
         
         mods=[[1.,1.,0.1,1.],
               [1.,1.,1.,0.1]]
@@ -1628,12 +1656,13 @@ for diffval in diffvals:
         # means = np.array([mean_b,mean_c])
         # errors = np.array([err_b,err_c])
         
+        # clr = ['blue','grey']
         # h = ax6.barh(y_pos, means, xerr=errors, align='center',  label=compartments, color=clr)
         # ax6.set_yticks(y_pos, compartments)
-        # ax6.set_xticks(np.linspace (-20,30,6),labels=['-$20$','-$10$','$0$','$10$','$20$','$30$'])
-        # ax6.set_xlim(-20,35)
+        # # ax6.set_xticks(np.linspace (-20,30,6),labels=['-$20$','-$10$','$0$','$10$','$20$','$30$'])
+        # # ax6.set_xlim(-20,35)
         # ax6.get_yaxis().set_visible(False) 
-        # # ax6.invert_yaxis() 
+        # ax6.invert_yaxis() 
 
         # ax6.text(10,0.2,'$\\rm \\underline{no cosub}$',fontsize=16)
         
@@ -2272,55 +2301,362 @@ for diffval in diffvals:
                # 'darkorange','teal',
                # 'darkorange','teal']
         # categories = ("$\\rm Expt.$","$\\rm Mito.$","$\\rm Both$","$\\rm Cyto.$","$\\rm No ~Cosub.$")
-        categories = ("$\\rm Experimental$\n $\\rm Data$","$\\rm Mitondiral$ \n $\\rm Switching$","$\\rm Both$ \n $\\rm  Switching$","$\\rm Cytosolic$ \n $\\rm  Switching$","$\\rm No ~Cosubstrate$ \n $\\rm  Switching$")
+        # categories = ("$\\rm Experimental$\n $\\rm Data$","$\\rm Mitondiral$ \n $\\rm Switching$","$\\rm Both$ \n $\\rm  Switching$","$\\rm Cytosolic$ \n $\\rm  Switching$","$\\rm No ~Cosubstrate$ \n $\\rm  Switching$")
+        
+        categories = ("$\\rm Experimental$\n $\\rm Data$","$\\rm Mitondiral$ \n $\\rm Switching$","$\\rm Both$ \n $\\rm  Switching$","$\\rm Cytosolic$ \n $\\rm  Switching$")
+        
+        # means = {
+        #     '$\\rm Cytosol$':(-6.90, means_mito[0],means_cyto[0],means_both[0],means_nocosub[0]),
+        #     '$\\rm Mitochondria$':(10.34, means_mito[1],means_cyto[1],means_both[1],means_nocosub[1]),
+        #     }
         
         means = {
-            '$\\rm Cytosol$':(-6.90, means_mito[0],means_both[0],means_cyto[0],means_nocosub[0]),
-            '$\\rm Mitochondria$':(10.34, means_mito[1],means_both[1],means_cyto[1],means_nocosub[1]),
+            '$\\rm Cytosol$':(-6.90, means_mito[0],means_cyto[0],means_both[0]),
+            '$\\rm Mitochondria$':(10.34, means_mito[1],means_cyto[1],means_both[1]),
             }
         
         errors= {
-            '$\\rm Cytosol$':(-10.35, errors_mito[0],errors_both[0],errors_cyto[0],errors_nocosub[0]),
-            '$\\rm Mitochondria$':(5.87, errors_mito[1],errors_both[1],errors_cyto[1],errors_nocosub[1]),
+            '$\\rm Cytosol$':(-10.35, errors_mito[0],errors_cyto[0],errors_both[0]),
+            '$\\rm Mitochondria$':(5.87, errors_mito[1],errors_cyto[1],errors_both[1]),
+            }
+        
+        edgecolors={
+            '$\\rm Cytosol$':('k','mediumseagreen','peru','firebrick'),
+            '$\\rm Mitochondria$':('k','mediumseagreen','peru','firebrick')
             }
         
         
         
         clr = ['none','grey']
-        edgeclr = ['k','k']
-        x=np.arange(len(categories))
-        width=0.45
+        # edgeclr = ['k','mediumseagreen','peru','firebrick','royalblue']
+        y=-np.arange(len(categories))
+        width=0.4
         multiplier=0
         
         for attribute, measurement in means.items():
             offset = width * multiplier
-            rects = ax6.bar(x + offset, measurement, width,
-                            label=attribute,color=clr[multiplier],
-                            edgecolor=edgeclr[multiplier],linewidth=2,
-                            yerr=np.abs(errors[attribute]))
+            
+            rects = ax6.barh(y+offset,measurement, width,
+                             label=attribute,color=clr[multiplier],
+                             edgecolor=edgecolors[attribute],linewidth=2,
+                             xerr=np.abs(errors[attribute]))#,)
+            # rects = ax6.bar(x + offset, width, measurement ,
+                            # label=attribute,color=clr[multiplier],
+                            # edgecolor=edgeclr[multiplier],linewidth=2)#,
+                            # xerr=np.abs(errors[attribute]))
             # ax6.bar_label(rects, padding=3)
             multiplier += 1
         
-        # h = ax6.bar(y_pos, means_th, yerr=errors_th, align='center',  label=compartments, color=clr)
-        # ax6.set_xticks(y_pos, compartments)
-        ax6.set_yticks(np.linspace (-20,30,6),labels=['-$20$','-$10$','$0$','$10$','$20$','$30$'])
-        ax6.set_ylim(-20,30)
-        # ax6.get_xaxis().set_visible(False) 
-        # ax6.invert_yaxis() 
-        # ax6.text(5,0.3,'$\\rm \\underline{Experiment}$',fontsize=16)
-        # ax6.legend(h,compartments,loc=(1.05,0.31),fontsize=15,title='$\\rm \\underline{Model}$')
-        ax6.set_ylabel('$\\rm \% ~change ~in ~switch ~point$')
-        ax6.hlines(y=0, xmin=-1, xmax=6, colors='gray', linestyles='dashed')
-        
        
+        ax6.set_xticks(np.linspace (-20,30,6),labels=['-$20$','-$10$','$0$','$10$','$20$','$30$'])
+        ax6.set_xlim(-25,30)
+        ax6.set_xlabel('$\\rm \% ~change ~in ~switch ~point$')
+        # ax6.hlines(y=0, xmin=-1, xmax=6, colors='gray', linestyles='dashed')
         
-        ax6.set_xticks(x + width/2, categories,ha="center",fontsize=15)
-        # ax6.legend(loc='upper right', ncols=1, title='\\underline{$\\rm Expressing~NADH$} \n \\underline{$\\rm oxidase ~in:$}')
-        ax6.legend(loc='upper right', ncols=2, title='\\underline{$\\rm Expressing~NADH~ oxidase ~in:$}')
-        ax6.set_xlim(-0.25,4.75)
+        
+        
+        ax6.set_yticks([])
+        # ax6.set_yticks(x + width/2, categories,ha="center",fontsize=15)
+        leg= ax6.legend(loc='lower left', ncols=1, title='$\\underline {\\rm Expressing~NADH}$ \n $\\underline {\\rm oxidase ~in:}$')
+        # ax6.set_xlim(-0.25,4.75)
+        
+        # set the linewidth of each legend object
+        for legobj in leg.legend_handles:
+            print(legobj)
+            legobj.set_linewidth(2.0)
+        
+        
+        ax6.text(-20,-0.8,'$\\rm \\bf Mito$',fontsize=18,color='w',
+                  bbox=dict(facecolor='mediumseagreen', edgecolor='k', boxstyle='round'))
+        
+        ax6.text(-20,-1.8,'$\\rm \\bf Cyto$',fontsize=18,color='w',
+                  bbox=dict(facecolor='peru', edgecolor='k', boxstyle='round'))
+        
+        ax6.text(20,-2.8,'$\\rm \\bf Both$',fontsize=18,color='w',
+                  bbox=dict(facecolor='firebrick', edgecolor='k', boxstyle='round'))
+        
+        ax6.text(20,0.2,'$\\rm \\bf Expt$',fontsize=18,color='w',
+                  bbox=dict(facecolor='k', edgecolor='k', boxstyle='round'))
         
         print(means)
         print(errors)
+        
+        print('\n\n############ BOTH #############\n\n')
+        # plt.figure()
+        swpts_both=list()  
+        swpts_both_Nmito=list()  
+        swpts_both_Ncyto=list()  
+        
+        sw_rat_both_Nmito=list()
+        sw_rat_both_Ncyto=list()
+        for i in range(len(indexes_switch_both)):
+            ind_temp=indexes_switch_both[i]
+        
+            ffvals_orig=1-fluxfrac[ind_temp]
+            cosub_frac_cyto=1-b0fractions[ind_temp]
+            cosub_frac_mito=1-c0fractions[ind_temp]
+            # plt.plot(kinplot,cosub_frac_cyto)
+            # plt.plot(kinplot,cosub_frac_mito,'--')
+            # plt.xscale('log')
+            
+            
+            swpt_orig,swpt_val_orig=mh_cm.find_sw_pt(ffvals_orig, kinplot)
+            
+            swpt_Nmito,swpt_val_Nmito=mh_cm.find_sw_pt(cosub_frac_mito, kinplot)
+            swpt_Ncyto,swpt_val_Ncyto=mh_cm.find_sw_pt(cosub_frac_cyto, kinplot)
+            
+            
+            # swpt_kc,swpt_kc_val=mh_cm.find_sw_pt(ffvals_kc_temp, kinplot,swpt_val_orig)
+            
+            # swptdiff_c=100*(swpt_kc-swpt_orig)/swpt_orig
+            # if np.isnan(swptdiff_c)==False:
+            if np.isnan(swpt_orig)==False:
+
+                swpts_both.append(swpt_orig)
+                swpts_both_Nmito.append(swpt_Nmito)
+                swpts_both_Ncyto.append(swpt_Ncyto)
+                
+                sw_rat_both_Nmito.append(swpt_orig/swpt_Nmito)
+                sw_rat_both_Ncyto.append(swpt_orig/swpt_Ncyto)
+                # swpt_diffs_c_both.append(swptdiff_c)
+                # if np.abs(swptdiff_c)>0.0001:
+                #     print(swpt_orig,swpt_kc,swptdiff_c)
+                #     plt.figure()
+                #     plt.plot(kinplot,ffvals_orig,'b')
+                #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+                #     plt.xscale('log')
+                #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+                #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+                #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+                #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+            # else:
+            #     print(swpt_orig,swpt_kc,swptdiff_c)
+            #     plt.figure()
+            #     plt.plot(kinplot,ffvals_orig,'b')
+            #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+            #     plt.xscale('log')
+            #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+            #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+            #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+            #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+        
+        mean_both=np.mean(swpts_both)
+        std_both=np.std(swpts_both)
+        err_both=std_both/np.sqrt(len(swpts_both))
+        
+        print(mean_both)
+        print(std_both)
+        print(err_both)
+        
+        mean_both_Nmito=np.mean(swpts_both_Nmito)
+        std_both_Nmito=np.std(swpts_both_Nmito)
+        err_both_Nmito=std_both_Nmito/np.sqrt(len(swpts_both_Nmito))
+        
+        print(mean_both_Nmito)
+        print(std_both_Nmito)
+        print(err_both_Nmito)
+        
+        mean_both_Ncyto=np.mean(swpts_both_Ncyto)
+        std_both_Ncyto=np.std(swpts_both_Ncyto)
+        err_both_Ncyto=std_both_Ncyto/np.sqrt(len(swpts_both_Ncyto))
+        
+        print(mean_both_Ncyto)
+        print(std_both_Ncyto)
+        print(err_both_Ncyto)
+        
+        
+        
+        print('\n\n############ CYTO #############\n\n')
+
+        # ################# cyto
+        # plt.figure()
+        swpts_cyto=list()  
+        swpts_cyto_Nmito=list()  
+        swpts_cyto_Ncyto=list()  
+        
+        sw_rat_cyto_Nmito=list()
+        sw_rat_cyto_Ncyto=list()
+        for i in range(len(indexes_switch_cyto)):
+            ind_temp=indexes_switch_cyto[i]
+        
+            ffvals_orig=1-fluxfrac[ind_temp]
+            cosub_frac_cyto=1-b0fractions[ind_temp]
+            cosub_frac_mito=1-c0fractions[ind_temp]
+            # plt.plot(kinplot,cosub_frac_cyto)
+            # plt.plot(kinplot,cosub_frac_mito,'--')
+            # plt.xscale('log')
+            swpt_orig,swpt_val_orig=mh_cm.find_sw_pt(ffvals_orig, kinplot)
+            swpt_Nmito,swpt_val_Nmito=mh_cm.find_sw_pt(cosub_frac_mito, kinplot)
+            swpt_Ncyto,swpt_val_Ncyto=mh_cm.find_sw_pt(cosub_frac_cyto, kinplot)
+            # print(swpt_orig,ind_temp)
+            # swpt_kc,swpt_kc_val=mh_cm.find_sw_pt(ffvals_kc_temp, kinplot,swpt_val_orig)
+            
+            # swptdiff_c=100*(swpt_kc-swpt_orig)/swpt_orig
+            if np.isnan(swpt_orig)==False:
+                swpts_cyto.append(swpt_orig)
+                swpts_cyto_Nmito.append(swpt_Nmito)
+                swpts_cyto_Ncyto.append(swpt_Ncyto)
+                
+                sw_rat_cyto_Nmito.append(swpt_orig/swpt_Nmito)
+                sw_rat_cyto_Ncyto.append(swpt_orig/swpt_Ncyto)
+                # swpt_diffs_c_cyto.append(swptdiff_c)
+                # if np.abs(swptdiff_c)>0.0001:
+                #     print(swpt_orig,swpt_kc,swptdiff_c)
+                #     plt.figure()
+                #     plt.plot(kinplot,ffvals_orig,'b')
+                #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+                #     plt.xscale('log')
+                #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+                #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+                #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+                #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+            # else:
+            #     print(swpt_orig,swpt_kc,swptdiff_c)
+            #     plt.figure()
+            #     plt.plot(kinplot,ffvals_orig,'b')
+            #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+            #     plt.xscale('log')
+            #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+            #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+            #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+            #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+        
+        mean_cyto=np.mean(swpts_cyto)
+        std_cyto=np.std(swpts_cyto)
+        err_cyto=std_cyto/np.sqrt(len(swpts_cyto))
+        
+        print(mean_cyto)
+        print(std_cyto)
+        print(err_cyto)
+        
+        mean_cyto_Nmito=np.mean(swpts_cyto_Nmito)
+        std_cyto_Nmito=np.std(swpts_cyto_Nmito)
+        err_cyto_Nmito=std_cyto_Nmito/np.sqrt(len(swpts_cyto_Nmito))
+        
+        print(mean_cyto_Nmito)
+        print(std_cyto_Nmito)
+        print(err_cyto_Nmito)
+        
+        mean_cyto_Ncyto=np.mean(swpts_cyto_Ncyto)
+        std_cyto_Ncyto=np.std(swpts_cyto_Ncyto)
+        err_cyto_Ncyto=std_cyto_Ncyto/np.sqrt(len(swpts_cyto_Ncyto))
+        
+        print(mean_cyto_Ncyto)
+        print(std_cyto_Ncyto)
+        print(err_cyto_Ncyto)
+        
+        
+        print('\n\n############ MITO #############\n\n')
+
+        # ################# mito
+        # plt.figure()
+        swpts_mito=list()  
+        swpts_mito_Nmito=list()  
+        swpts_mito_Ncyto=list()
+        
+        sw_rat_mito_Nmito=list()
+        sw_rat_mito_Ncyto=list()
+        
+        for i in range(len(indexes_switch_mito)):
+            ind_temp=indexes_switch_mito[i]
+        
+            ffvals_orig=1-fluxfrac[ind_temp]
+            cosub_frac_cyto=1-b0fractions[ind_temp]
+            cosub_frac_mito=1-c0fractions[ind_temp]
+            # plt.plot(kinplot,cosub_frac_cyto)
+            # plt.plot(kinplot,cosub_frac_mito,'--')
+            # plt.xscale('log')
+            swpt_orig,swpt_val_orig=mh_cm.find_sw_pt(ffvals_orig, kinplot)
+            swpt_Nmito,swpt_val_Nmito=mh_cm.find_sw_pt(cosub_frac_mito, kinplot)
+            swpt_Ncyto,swpt_val_Ncyto=mh_cm.find_sw_pt(cosub_frac_cyto, kinplot)
+            
+            # print(swpt_orig,ind_temp)
+            # swpt_kc,swpt_kc_val=mh_cm.find_sw_pt(ffvals_kc_temp, kinplot,swpt_val_orig)
+            # plt.figure()
+            # swpt_nh,swpt_val_nh=mh_cm.find_sw_pt(, kinplot)
+            # swptdiff_c=100*(swpt_kc-swpt_orig)/swpt_orig
+            if np.isnan(swpt_orig)==False:
+                swpts_mito.append(swpt_orig)
+                swpts_mito_Nmito.append(swpt_Nmito)
+                swpts_mito_Ncyto.append(swpt_Ncyto)
+                
+                sw_rat_mito_Nmito.append(swpt_orig/swpt_Nmito)
+                sw_rat_mito_Ncyto.append(swpt_orig/swpt_Ncyto)
+                
+                # if np.log10(swpt_orig/swpt_Nmito)< -3:
+                    # plt.plot(kinplot,ffvals_orig,'-k')
+                    # plt.plot(kinplot,cosub_frac_mito,color='mediumseagreen')
+                    
+                # swpt_diffs_c_mito.append(swptdiff_c)
+                # if np.abs(swptdiff_c)>0.0001:
+                #     print(swpt_orig,swpt_kc,swptdiff_c)
+                #     plt.figure()
+                #     plt.plot(kinplot,ffvals_orig,'b')
+                #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+                #     plt.xscale('log')
+                #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+                #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+                #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+                #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+            # else:
+            #     print(swpt_orig,swpt_kc,swptdiff_c)
+            #     plt.figure()
+            #     plt.plot(kinplot,ffvals_orig,'b')
+            #     plt.plot(kinplot,ffvals_kc_temp,'--r')
+            #     plt.xscale('log')
+            #     plt.text(10**-4,0.5,str(swptdiff_c),fontsize=30)
+            #     plt.text(10**-4,0.2,str(ind_temp),fontsize=30)
+            #     plt.scatter(swpt_orig,swpt_val_orig,50,'b')
+            #     plt.scatter(swpt_kc,swpt_kc_val,50,'r')
+        
+        mean_mito=np.mean(swpts_mito)
+        std_mito=np.std(swpts_mito)
+        err_mito=std_mito/np.sqrt(len(swpts_mito))
+        
+        print(mean_mito)
+        print(std_mito)
+        print(err_mito)
+        
+        mean_mito_Nmito=np.mean(swpts_mito_Nmito)
+        std_mito_Nmito=np.std(swpts_mito_Nmito)
+        err_mito_Nmito=std_mito_Nmito/np.sqrt(len(swpts_mito_Nmito))
+        
+        print(mean_mito_Nmito)
+        print(std_mito_Nmito)
+        print(err_mito_Nmito)
+        
+        mean_mito_Ncyto=np.mean(swpts_mito_Ncyto)
+        std_mito_Ncyto=np.std(swpts_mito_Ncyto)
+        err_mito_Ncyto=std_mito_Ncyto/np.sqrt(len(swpts_mito_Ncyto))
+        
+        print(mean_mito_Ncyto)
+        print(std_mito_Ncyto)
+        print(err_mito_Ncyto)
+        
+        boxwidth=0.8 
+        colors=['saddlebrown','darkgreen','peru','mediumseagreen']
+        bplot=axsw.violinplot([np.log10(sw_rat_both_Ncyto),  np.log10(sw_rat_both_Nmito), np.log10(sw_rat_cyto_Ncyto), np.log10(sw_rat_mito_Nmito)], widths=(boxwidth,boxwidth,boxwidth,boxwidth),orientation = 'horizontal',
+                    showmeans=False,
+                          showmedians=True)#,
+        # Set the color of the violin patches
+        for pc, color in zip(bplot['bodies'], colors):
+            pc.set_facecolor(color)
+            pc.set_alpha(1)
+        # Set the color of the median lines
+        axsw.grid('on')
+
+        bplot['cmedians'].set_colors('k')
+        bplot['cbars'].set_colors('k')
+        bplot['cmins'].set_colors('k')
+        bplot['cmaxes'].set_colors('k')
+        # Set the labels
+        axsw.set_yticks([1, 2, 3, 4], labels=['B-C','B-M','C-C','M-M'])#patch_artist=True)
+        axsw.set_xticks([-4,-2,0,2,4],labels=['$10^{-4}$','$10^{-2}$','$10^{0}$',
+                                              '$10^{2}$','$10^{4}$'])
+        axsw.set_xlabel('$ \\frac{F_f ~{\\rm switch~ point} }{N_H~ {\\rm switch~ point}}  $')
+        # ax2.set_title('$V_{\\rm max}^{ N^m}$', fontsize=15,y=1.01)
+        # ax21.set_yticks(ticks=[0,1,2], labels=['$10^{0}$','$10^{1}$','$10^{2}$'])
+        
         if savefig==1:
             # plt.savefig('Figure4_supp.png',bbox_inches='tight',format='png')
             # plt.savefig('Figure4_supp.eps',bbox_inches='tight',format='eps')
@@ -2328,6 +2664,7 @@ for diffval in diffvals:
             plt.savefig('Figure_4.eps',bbox_inches='tight',format='eps')
             plt.savefig('Figure_4.pdf',bbox_inches='tight',format='pdf')
             plt.savefig('Figure_4.svg',bbox_inches='tight',format='svg')
+
 
 # print(swpt_444,sw_orig444)
 # print(maxdelta)
