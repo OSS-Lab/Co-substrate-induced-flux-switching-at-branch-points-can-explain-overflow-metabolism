@@ -1,4 +1,4 @@
-# Co-substrate-induced-flux-switching-at-branch-points-can-explain-overflow-metabolism
+# Co-substrate-induced-flux-switching-at-branch-points-can-explain-flux-redistribution
 
 This repository contains the code for generating the figures for the paper "Co-substrate induced flux switching at branch points can explain overflow metabolism" https://doi.org/10.1101/2025.06.05.658108. The basic ode models are also included, so more parameter sets can be examined if desired.
 
